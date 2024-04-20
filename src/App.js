@@ -4,9 +4,6 @@ import TextForm from './components/TextForm';
 import { useState } from 'react';
 import { BrowserRouter as Router,Routes, Route } from 'react-router-dom';
 import About from './components/About';
-// import ButtonClick from './components/ButtonClick';
-
-// import About from './components/About';
 
 function App() {
   const [mode,setMode]=useState('light');
@@ -27,19 +24,18 @@ function App() {
   }
 
   return (
-   <>
-   <Navbar text='TextUtils' about='About Us' mode={mode} darkMode={darkMode} toggleMode={toggleMode}/>
-   <Router>
-    <Routes>
-      <Route exact path='/' element={<TextForm heading='Enter the text to analyze below' mode={mode}/>}></Route>
-      <Route exact path='/about' element={<About mode={mode}/>}></Route>
-      </Routes>
-   </Router>
-   {/* <div className="container my-3 ">
+    <>
+    <Navbar text='TextUtils' about='About Us' mode={mode} darkMode={darkMode} toggleMode={toggleMode}/>
     
-   </div> */}
-   {/* <ButtonClick/> */}
-   </>
+    <Router>
+      <div className="container my-3">
+        <Routes>
+          <Route path='/' element={<TextForm heading='TextUtils - Word Counter, Character Counter, Remove Extra Spaces' mode={mode}/>}/>
+          <Route path='/about' element={<About mode={mode}/>}/>
+        </Routes>
+      </div>
+    </Router>
+  </>
   );
 }
 

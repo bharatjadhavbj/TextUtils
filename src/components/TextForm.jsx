@@ -43,8 +43,8 @@ const TextForm = (props) => {
     var text = document.getElementById('myBox')
     text.select();
     navigator.clipboard.writeText(text.value)
+    // document.getSelection().removeAllRanges();
     setCopyText('Copied..')
-
     setTimeout(() => {
         alert(`Text Copied!`)
     }, 200);
@@ -70,7 +70,7 @@ const TextForm = (props) => {
 
     <>
       <div className="container"  style={{backgroundColor: props.mode==='dark'?'black':'white' ,color: props.mode==='dark'?'white':'black'}}>
-        <h1>{props.heading}</h1>
+        <h3 className="mb-4">{props.heading}</h3>
         <div className="mb-3">
           <textarea
             className="form-control"
@@ -81,30 +81,32 @@ const TextForm = (props) => {
             placeholder="Enter text"  style={{backgroundColor: props.mode==='dark'?'black':'white' ,color: props.mode==='dark'?'white':'black'}}
           ></textarea>
         </div>
-        <button className="btn btn-primary mx-2 " onClick={handleUpCase}>
+        <div className="btnSet my-2">
+        <button className="btn btn-outline-primary me-2 " disabled={text.length===0} onClick={handleUpCase}>
           Convert To UpperCase
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleLoCase}>
+        <button className="btn btn-outline-primary mx-2" disabled={text.length===0} onClick={handleLoCase}>
           Convert To LowerCase
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleTitleCase}>
+        <button className="btn btn-outline-primary mx-2" disabled={text.length===0} onClick={handleTitleCase}>
           Convert To TitleCase
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleCopy} onMouseLeave={()=>{setCopyText('Copy Text')}}>
+        <button className="btn btn-outline-primary mx-2" disabled={text.length===0} onClick={handleCopy} onMouseLeave={()=>{setCopyText('Copy Text')}}>
           {copyText}
         </button>
-        <button className="btn btn-primary mx-2" onClick={handleExtraSpaces} onMouseLeave={()=>{setCopyText('Copy Text')}}>
+        <button className="btn btn-outline-primary mx-2" disabled={text.length===0} onClick={handleExtraSpaces} onMouseLeave={()=>{setCopyText('Copy Text')}}>
          Remove Extra Spaces
         </button>
-        <button className="btn btn-danger mx-2" onClick={handleClearText}>
+        <button className="btn btn-outline-danger mx-2" disabled={text.length===0} onClick={handleClearText}>
           Clear Text
         </button>
+        </div>
       </div>
       <div className="container my-3 "  style={{color: props.mode==='dark'?'white':'black'}}>
         <h2>Your Text Summary </h2>
 
-        <p>{text===''?'0':text.split(' ').length && text.charAt(text.length-1)===' '?(text.split(' ').length-1):text.split(' ').length} words and {text.length} characters</p>
-        <p>{text===''?'0.000':0.008*text.split(' ').length} minutes to read </p>
+        <p>{text.split(/\s+/).filter((e)=>{return e.length!==0}).length}words and {text.length} characters</p>
+        <p>{0.008*text.split(' ').filter((e)=>{return e.length!==0}).length} minutes to read </p>
         <h2>Preview</h2>
         <p>{text.length>0?text:'Enter something in the textbox above to preview it here'}</p>
       </div>
